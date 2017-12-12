@@ -57,4 +57,4 @@ while True:
         right.write_angle(180)
     else:
         right.write_angle(90)
-    wait(20)
+    sleep(20)
