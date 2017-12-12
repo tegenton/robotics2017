@@ -51,8 +51,10 @@ right = Servo(pin16)
 while True:
     if button_a.is_pressed():
         left.write_angle(0)
+    else:
+        left.write_angle(90)
     if button_b.is_pressed():
         right.write_angle(180)
     else:
-        left.write_angle(90)
         right.write_angle(90)
+    wait(20)
