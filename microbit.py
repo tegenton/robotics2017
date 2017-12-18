@@ -2,7 +2,7 @@
 # pressing button_a sweeps the servo from 0 degrees to 180 degrees
 # pressing button_b gives 0 degrees then 180 degrees.
 # Tested with SG90 servo @ 3.3v
-
+import radio
 from microbit import *
 
 class Servo:
@@ -44,17 +44,32 @@ class Servo:
         total_range = self.max_us - self.min_us
         us = self.min_us + total_range * degrees // self.angle
         self.write_us(us)
+#turn on the radio
+radio.on
 
+#define the servos
 left = Servo(pin15)
 right = Servo(pin16)
-
+#define the direction signals
+forward = 
+backward = 
+left = 
+right = 
+stay = 
 while True:
-    if button_a.is_pressed():
+    #get the radio signal
+    signal = radio.recieve()
+    #convert signal to servo movement
+    if (signal == left or signal == forward):
         left.write_angle(0)
-    else:
+    elif signal == stay:
         left.write_angle(90)
-    if button_b.is_pressed():
-        right.write_angle(180)
     else:
+        left.write_angle(0)
+    if (signal == right or signal == forward):
+        right.write_angle(180)
+    elif signal == stay:
         right.write_angle(90)
+    else:
+        left.write_angle(0)
     sleep(20)
