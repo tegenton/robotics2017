@@ -1,5 +1,4 @@
 import radio
-import random
 from microbit import *
 
 # The radio won't work unless it's switched on.
