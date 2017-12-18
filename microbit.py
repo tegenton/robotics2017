@@ -40,7 +40,7 @@ class Servo:
         self.pin.write_digital(0)  # turn the pin off
 
     def write_angle(self, degrees=None):
-        degrees = degrees % 10
+        degrees = degrees % 360
         total_range = self.max_us - self.min_us
         us = self.min_us + total_range * degrees // self.angle
         self.write_us(us)
