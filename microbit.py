@@ -9,14 +9,12 @@ class Servo:
 
     """
     A simple class for controlling hobby servos.
-
     Args:
         pin (pin0 .. pin3): The pin where servo is connected.
         freq (int): The frequency of the signal, in hertz.
         min_us (int): The minimum signal length supported by the servo.
         max_us (int): The maximum signal length supported by the servo.
         angle (int): The angle between minimum and maximum positions.
-
     Usage:
         SG90 @ 3.3v servo connected to pin0
         = Servo(pin0).write_angle(90)
@@ -48,28 +46,28 @@ class Servo:
 radio.on()
 
 #define the servos
-left = Servo(pin15)
-right = Servo(pin16)
+leftServo = Servo(pin15)
+rightServo = Servo(pin16)
 #define the direction signals
-forward = 
-backward = 
-left = 
-right = 
-stay = 
+forward = "forward"
+backward = "backward"
+left = "left"
+right = "right"
+stay = "stay"
 while True:
     #get the radio signal
-    signal = radio.recieve()
+    signal = radio.receive()
     #convert signal to servo movement
     if (signal == left or signal == forward):
-        left.write_angle(0)
-    elif signal == stay:
-        left.write_angle(90)
+        leftServo.write_angle(0)
+    elif signal == backward:
+        leftServo.write_angle(180)
     else:
-        left.write_angle(0)
+        leftServo.write_angle(90)
     if (signal == right or signal == forward):
-        right.write_angle(180)
-    elif signal == stay:
-        right.write_angle(90)
+        rightServo.write_angle(180)
+    elif signal == backward:
+        rightServo.write_angle(0)
     else:
-        left.write_angle(0)
+        rightServo.write_angle(90)
     sleep(20)
