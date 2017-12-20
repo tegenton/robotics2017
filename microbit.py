@@ -45,7 +45,7 @@ class Servo:
         us = self.min_us + total_range * degrees // self.angle
         self.write_us(us)
 #turn on the radio
-radio.on
+radio.on()
 
 #define the servos
 left = Servo(pin15)
