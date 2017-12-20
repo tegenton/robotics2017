@@ -4,18 +4,18 @@ from microbit import *
 # The radio won't work unless it's switched on.
 radio.on()
 
-//define directional signals
-forward = 
-backward =
-left =
-right = 
+# define directional signals
+forward = "forward"
+backward = "backward"
+left = "left"
+right = "right"
 
 while True:
-  # if forward
+  if button_a.was_pressed():
     radio.send(forward)
-  # if backward
+  if button_b.was_pressed():
     radio.send(backward)
   # if left
-    radio.send(left)
+    # radio.send(left)
   # if forward
-    radio.send(right)
+    # radio.send(right)
