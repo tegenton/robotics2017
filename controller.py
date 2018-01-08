@@ -5,10 +5,10 @@ from microbit import *
 radio.on()
 
 # define directional signals
-forward = "forward"
-backward = "backward"
-left = "left"
-right = "right"
+forward = "unicornTrash-forward"
+backward = "unicornTrash-backward"
+left = "unicornTrash-left"
+right = "unicornTrash-right"
 
 while True:
   if button_a.was_pressed():
