@@ -1,21 +1,38 @@
-import radio
 from microbit import *
+import radio
 
-# The radio won't work unless it's switched on.
 radio.on()
 
-# define directional signals
-forward = "unicornTrash-forward"
-backward = "unicornTrash-backward"
-left = "unicornTrash-left"
-right = "unicornTrash-right"
+def assembleMessage(direction, r_speed, l_speed):
+    """Create the message to be received by the robot"""
+    return direction + l_speed + r_speed
 
+
+# Event Loop
 while True:
-  if button_a.was_pressed():
-    radio.send(forward)
-  if button_b.was_pressed():
-    radio.send(backward)
-  # if left
-    # radio.send(left)
-  # if forward
-    # radio.send(right)
+    y_orientation = accelerometer.get_y()
+
+    # Determine direction (either forwards or backwards)
+    if y_orientation < 300:
+        display.show(Image.ARROW_N)
+        direction = "t"
+    else:
+        display.show(Image.ARROW_S)
+        direction = "f"
+    
+    # Determine which wheels should turn
+    if button_a.is_pressed():
+        leftSpeed = "t"
+    else:
+        leftSpeed = "f"
+
+    if button_b.is_pressed():
+        rightSpeed = "t"
+    else:
+        rightSpeed = "f"
+
+    radioMessage = assembleMessage(direction, rightSpeed, leftSpeed)
+    radio.send(radioMessage)
+
+    sleep(10)
+    
