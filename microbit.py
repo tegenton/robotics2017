@@ -49,25 +49,27 @@ radio.on()
 leftServo = Servo(pin15)
 rightServo = Servo(pin16)
 #define the direction signals
-forward = "forward"
-backward = "backward"
-left = "left"
-right = "right"
-stay = "stay"
+forward = "unicornTrash-forward"
+backward = "unicornTrash-backward"
+left = "unicornTrash-left"
+right = "unicornTrash-right"
+stay = "unicornTrash-stay"
 while True:
     #get the radio signal
     signal = radio.receive()
     #convert signal to servo movement
-    if (signal == left or signal == forward):
-        leftServo.write_angle(0)
-    elif signal == backward:
-        leftServo.write_angle(180)
+    if signal == stay:
     else:
-        leftServo.write_angle(90)
-    if (signal == right or signal == forward):
-        rightServo.write_angle(180)
-    elif signal == backward:
-        rightServo.write_angle(0)
-    else:
-        rightServo.write_angle(90)
+        if (signal == left or signal == forward):
+            leftServo.write_angle(0)
+        elif signal == backward:
+            leftServo.write_angle(180)
+        else:
+            leftServo.write_angle(90)
+        if (signal == right or signal == forward):
+            rightServo.write_angle(180)
+        elif signal == backward:
+            rightServo.write_angle(0)
+        else:
+            rightServo.write_angle(90)
     sleep(20)
