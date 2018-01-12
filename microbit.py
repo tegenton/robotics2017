@@ -1,10 +1,8 @@
-# Rotates the servo depending on the microbit's rotation through the x axis.
-# pressing button_a sweeps the servo from 0 degrees to 180 degrees
-# pressing button_b gives 0 degrees then 180 degrees.
-# Tested with SG90 servo @ 3.3v
-import radio
 from microbit import *
+import radio
 
+# Servo class sourced from Github
+# TODO: Find actual link
 class Servo:
 
     """
@@ -42,34 +40,33 @@ class Servo:
         total_range = self.max_us - self.min_us
         us = self.min_us + total_range * degrees // self.angle
         self.write_us(us)
-#turn on the radio
+
 radio.on()
 
-#define the servos
-leftServo = Servo(pin15)
-rightServo = Servo(pin16)
-#define the direction signals
-forward = "unicornTrash-forward"
-backward = "unicornTrash-backward"
-left = "unicornTrash-left"
-right = "unicornTrash-right"
-stay = "unicornTrash-stay"
-while True:
-    #get the radio signal
-    signal = radio.receive()
-    #convert signal to servo movement
-    if signal == stay:
+# Global Constants
+leftMotor = Servo(pin15)
+rightMotor = Servo(pin16)
+
+def tank_drive(speed, lSpeed, rSpeed):
+    """ Drives the robot in tank drive. Direction indicates whether the robot will drive forwards or backwards"""
+    
+    if rSpeed:
+        rightMotor.write_angle(speed)
     else:
-        if (signal == left or signal == forward):
-            leftServo.write_angle(0)
-        elif signal == backward:
-            leftServo.write_angle(180)
-        else:
-            leftServo.write_angle(90)
-        if (signal == right or signal == forward):
-            rightServo.write_angle(180)
-        elif signal == backward:
-            rightServo.write_angle(0)
-        else:
-            rightServo.write_angle(90)
-    sleep(20)
+        rightMotor.write_angle(90)
+
+    if lSpeed:
+        leftMotor.write_angle(180 - speed)
+    else:
+        leftMotor.write_angle(90)
+
+# Event Loop
+while True:
+    incoming = radio.receive()
+    speed = (incoming[0] == 't')
+    left = (incoming[1] == 't')
+    right = (incoming[3] == 't')
+    # This is totally secure
+    tank_drive()
+
+    sleep(50)
