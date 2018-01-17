@@ -15,10 +15,10 @@ while True:
     # Determine direction (either forwards or backwards)
     if y_orientation < 300:
         display.show(Image.ARROW_N)
-        direction = "t"
+        direction = "f"
     else:
         display.show(Image.ARROW_S)
-        direction = "f"
+        direction = "t"
     
     # Determine which wheels should turn
     if button_a.is_pressed():
