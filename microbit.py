@@ -63,10 +63,13 @@ def tank_drive(speed, lSpeed, rSpeed):
 # Event Loop
 while True:
     incoming = radio.receive()
-    speed = (incoming[0] == 't')
-    left = (incoming[1] == 't')
-    right = (incoming[3] == 't')
+    if incoming is None:
+        incoming = 'fff'
+    if (incoming[0] == 't'):
+        speed = 0
+    else:
+        speed = 180
     # This is totally secure
-    tank_drive()
+    tank_drive(speed, (incoming[1] == 't'), (incoming[2] == 't'))
 
     sleep(50)
