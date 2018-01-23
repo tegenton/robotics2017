@@ -3,11 +3,6 @@ import radio
 
 radio.on()
 
-def assembleMessage(direction, r_speed, l_speed):
-    """Create the message to be received by the robot"""
-    return direction + l_speed + r_speed
-
-
 # Event Loop
 while True:
     y_orientation = accelerometer.get_y()
@@ -30,9 +25,8 @@ while True:
         rightSpeed = "t"
     else:
         rightSpeed = "f"
-
-    radioMessage = assembleMessage(direction, rightSpeed, leftSpeed)
-    radio.send(radioMessage)
+    
+    radio.send(direction + leftSpeed + rightSpeed)
 
     sleep(10)
     
